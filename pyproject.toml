@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "python-coding-challenge"
+version = "0.1.0"
+description = ""
+authors = ["David Alejandro Cajiao Lazt <123507601+DCajiao@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+jupyter = "^1.1.1"
+pandas = "^2.2.3"
+word2number = "^1.1"
+psutil = "^6.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
