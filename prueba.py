@@ -15,3 +15,9 @@ for i in n:
         print("hola mundo")
         break
 
+
+number_whatever = "111111"
+
+int_number = int(number_whatever)
+
+print(int_number)
