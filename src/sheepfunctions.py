@@ -2,6 +2,7 @@ import re
 from typing import List, Union
 from pathlib import Path
 from word2number import w2n
+from metrics import time_execution, memory_usage
 
 
 def eval_int_exp(exp: str) -> int:
@@ -51,6 +52,9 @@ def read_input(input_file: Union[str, Path]) -> List[int]:
     cases = []
     with open(input_file, 'r') as file:
         T = int(file.readline().strip())  # Number of test cases
+        if not (1 <= T <= 100):  # Validate number of test cases
+            raise ValueError(f"Invalid number of test cases: {T}")
+
         for _ in range(T):
             exp = file.readline().strip()
             N = eval_int_exp(exp)  # Evaluate and validate the input expression
@@ -84,9 +88,11 @@ def process_case(n: int) -> Union[int, str]:
     return current_multiple
 
 
+@time_execution
 def generate_output(input_file: Union[str, Path], output_file: Union[str, Path]) -> str:
     """
     Processes all test cases and writes the results to an output file in the expected format.
+    Also validates memory usage and prints the results of the process.
 
     Args:
         input_file (Union[str, Path]): The path to the input file containing test cases.
@@ -103,7 +109,13 @@ def generate_output(input_file: Union[str, Path], output_file: Union[str, Path])
         results.append(f"Case #{i}: {result}")
 
     with open(output_file, 'w') as file:
-        # Ensure correct format with final newline
         file.write("\n".join(results) + "\n")
+
+    # Measure memory usage after the process
+    used_memory = memory_usage()
+
+    # If memory exceeds 1 GB, raise an error
+    if used_memory > 1024:
+        raise MemoryError("[ERROR] Memory usage exceeded 1 GB")
 
     return "\n".join(results) + "\n"
