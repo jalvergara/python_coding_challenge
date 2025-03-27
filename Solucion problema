@@ -1,0 +1,31 @@
+def contar_digitos_vistos(cantidad_casos, lista_numeros):
+    respuestas = []
+    indice_caso = 1
+    
+    for numero in lista_numeros:
+        if not numero.isdigit(): 
+            continue
+        
+        numero = int(numero)
+        if numero == 0:
+            respuestas.append(f"Caso #{indice_caso}: INSOMNIA")
+            indice_caso += 1
+            continue
+        
+        conjunto_digitos = set()
+        contador = 0
+        
+        while len(conjunto_digitos) < 10:
+            contador += 1
+            nuevo_valor = numero * contador
+            conjunto_digitos.update(str(nuevo_valor))
+        
+        respuestas.append(f"Caso #{indice_caso}: {nuevo_valor}")
+        indice_caso += 1
+    
+    return "\n".join(respuestas)
+
+# Lectura de datos
+cantidad_casos = int(input())
+lista_numeros = [input().strip() for _ in range(cantidad_casos)]
+print(contar_digitos_vistos(cantidad_casos, lista_numeros))
